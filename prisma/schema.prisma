@@ -11,14 +11,15 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique @db.VarChar(255)
-  email     String    @unique @db.VarChar(255)
-  password  String    @db.VarChar(255)
+  id        Int         @id @default(autoincrement())
+  username  String      @unique @db.VarChar(255)
+  email     String      @unique @db.VarChar(255)
+  password  String      @db.VarChar(255)
   avatar    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
   Session   Session[]
+  Character Character[]
 }
 
 model Session {
@@ -28,4 +29,80 @@ model Session {
   token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum CharacterAligments {
+  CHAOTIC_EVIL
+  CHAOTIC_GOOD
+  CHAOTIC_NEUTRAL
+  LAWFUL_EVIL
+  LAWFUL_GOOD
+  LAWFUL_NEUTRAL
+  NEUTRAL
+  NEUTRAL_EVIL
+  NEUTRAL_GOOD
+}
+
+enum CharacterRaces {
+  DRAGONBORN
+  DWARF
+  ELF
+  GNOME
+  HALF_ELF
+  HALFLING
+  HALF_ORC
+  HUMAN
+  TIEFLING
+}
+
+enum CharacterClasses {
+  BARBARIAN
+  BARD
+  CLERIC
+  DRUID
+  FIGHTER
+  MONK
+  PALADIN
+  RANGER
+  ROGUE
+  SORCERER
+  WARLOCK
+  WIZARD
+}
+
+model Character {
+  id                 Int                @id @default(autoincrement())
+  userId             Int?
+  User               User?              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name               String             @db.VarChar(255)
+  portrait           String?
+  level              Int
+  race               CharacterRaces
+  class              CharacterClasses
+  aligment           CharacterAligments
+  background         String?
+  strenght           Int
+  dexterity          Int
+  constitution       Int
+  intelligence       Int
+  wisdom             Int
+  charisma           Int
+  languages          String?
+  personality_traits String?
+  ideals             String?
+  bonds              String?
+  flaws              String?
+  hair               String?
+  skin               String?
+  eyes               String?
+  height             String?
+  weight             Int?
+  age                Int?
+  organizations      String?
+  allies             String?
+  enemies            String?
+  backstory          String?
+  other_notes        String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
 }
