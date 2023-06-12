@@ -16,6 +16,10 @@ export async function createUser({ username, email, password }: CreateUserParams
   });
 }
 
+export async function updateAvatar(userId: number, avatar: string) {
+  await userRepository.updateAvatar(userId, avatar);
+}
+
 async function validateUniqueEmailOrFail(email: string) {
   const userWithSameEmail = await userRepository.findByEmail(email);
   if (userWithSameEmail) {
@@ -34,6 +38,7 @@ export type CreateUserParams = Pick<User, 'username' | 'email' | 'password'>;
 
 const userService = {
   createUser,
+  updateAvatar,
 };
 
 export * from './errors';

@@ -29,10 +29,22 @@ async function create(data: Prisma.UserUncheckedCreateInput) {
   });
 }
 
+async function updateAvatar(id: number, avatar: string) {
+  return prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      avatar
+    },
+  });
+}
+
 const userRepository = {
   findByEmail,
   findByUsername,
   create,
+  updateAvatar
 };
 
 export default userRepository;
