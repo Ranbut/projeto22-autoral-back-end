@@ -1,3 +1,5 @@
+import { Character } from "@prisma/client";
+
 export type ApplicationError = {
   name: string;
   message: string;
@@ -10,3 +12,5 @@ export type RequestError = {
   name: string;
   message: string;
 };
+
+export type CreateCharacterParams = Omit<Character, 'id' | 'createdAt' | 'updatedAt'>;
