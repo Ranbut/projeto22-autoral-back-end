@@ -27,7 +27,7 @@ const classes = [
   'WIZARD'
 ];
 
-const aligments = [
+const alignments = [
   'CHAOTIC_EVIL',
   'CHAOTIC_GOOD',
   'CHAOTIC_NEUTRAL',
@@ -45,7 +45,7 @@ export const characterSchema = Joi.object ({
   level: Joi.number().min(1).max(20).required(),
   race: Joi.string().valid(...races).required(),
   class: Joi.string().valid(...classes).required(),
-  aligment: Joi.string().valid(...aligments).required(),
+  aligment: Joi.string().valid(...alignments).required(),
   background: Joi.string().allow('').optional(),
   strenght: Joi.number().min(1).max(30).required(),
   dexterity: Joi.number().min(1).max(30).required(),
