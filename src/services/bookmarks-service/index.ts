@@ -1,6 +1,30 @@
 import { Bookmark, CreateBookmarkParams } from '@/protocols';
 import bookmarksRepository from '@/repositories/bookmarks-repository';
-import { MonsterBookmark } from '@prisma/client';
+
+export async function getMonstersBookmarks(userId: number) {
+    const bookmarks = await bookmarksRepository.getMonstersBookmarks(userId);
+  
+    return bookmarks;
+}
+
+export async function getSpellsBookmarks(userId: number) {
+    const bookmarks = await bookmarksRepository.getSpellsBookmarks(userId);
+  
+    return bookmarks;
+}
+
+export async function getEquipmentsBookmarks(userId: number) {
+    const bookmarks = await bookmarksRepository.getEquipmentsBookmarks(userId);
+  
+    return bookmarks;
+}
+
+export async function getMagicItemsBookmarks(userId: number) {
+    const bookmarks = await bookmarksRepository.getMagicItemsBookmarks(userId);
+  
+    return bookmarks;
+}
+
 
 async function addMonsterBookmark(userId: number, bookmark: Bookmark) {
     const bookmarkData: CreateBookmarkParams = {
@@ -47,6 +71,10 @@ async function addMagicItemBookmark(userId: number, bookmark: Bookmark) {
 }
 
 const bookmarksService = { 
+    getMonstersBookmarks,
+    getSpellsBookmarks,
+    getEquipmentsBookmarks,
+    getMagicItemsBookmarks,
     addMonsterBookmark,
     addSpellBookmark,
     addEquipmentBookmark,
