@@ -11,15 +11,19 @@ datasource db {
 }
 
 model User {
-  id        Int         @id @default(autoincrement())
-  username  String      @unique @db.VarChar(255)
-  email     String      @unique @db.VarChar(255)
-  password  String      @db.VarChar(255)
-  avatar    String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  Session   Session[]
-  Character Character[]
+  id                  Int                   @id @default(autoincrement())
+  username            String                @unique @db.VarChar(255)
+  email               String                @unique @db.VarChar(255)
+  password            String                @db.VarChar(255)
+  avatar              String
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  Session             Session[]
+  Character           Character[]
+  MonsterBookmarks    MonsterBookmark[]
+  SpellsBookmarks     SpellBookmark[]
+  EquipmentsBookmarks EquipmentBookmark[]
+  MagicItemsBookmarks MagicItemBookmark[]
 }
 
 model Session {
@@ -105,4 +109,44 @@ model Character {
   other_notes        String?
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
+}
+
+model MonsterBookmark {
+  id        Int      @id @default(autoincrement())
+  index     String
+  name      String
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SpellBookmark {
+  id        Int      @id @default(autoincrement())
+  index     String
+  name      String
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EquipmentBookmark {
+  id        Int      @id @default(autoincrement())
+  index     String
+  name      String
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MagicItemBookmark {
+  id        Int      @id @default(autoincrement())
+  index     String
+  name      String
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

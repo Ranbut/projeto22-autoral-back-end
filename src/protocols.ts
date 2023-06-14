@@ -1,4 +1,4 @@
-import { Character } from "@prisma/client";
+import { Character, MonsterBookmark } from "@prisma/client";
 
 export type ApplicationError = {
   name: string;
@@ -13,4 +13,7 @@ export type RequestError = {
   message: string;
 };
 
+export type Bookmark = Omit<MonsterBookmark, 'id'| 'userId' | 'createdAt' | 'updatedAt'>;
+
 export type CreateCharacterParams = Omit<Character, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateBookmarkParams = Omit<MonsterBookmark, 'id' | 'createdAt' | 'updatedAt'>;
