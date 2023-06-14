@@ -1,91 +1,44 @@
-import { Bookmark, CreateBookmarkParams } from '@/protocols';
+import { notFoundError } from '@/errors/not-found-error';
+import { BookmarkType, CreateBookmarkParams } from '@/protocols';
 import bookmarksRepository from '@/repositories/bookmarks-repository';
+import { TypeBookmark } from '@prisma/client';
 
 export async function getBookmark(userId: number, index: string) {
     const bookmark = await bookmarksRepository.getBookmark(userId, index);
-  
+
     return bookmark;
 }
 
-export async function getMonstersBookmarks(userId: number) {
-    const bookmarks = await bookmarksRepository.getMonstersBookmarks(userId);
+export async function removeBookmark(userId: number, index: string) {
+    const bookmark = await bookmarksRepository.getBookmark(userId, index);
+    if (!bookmark) throw notFoundError();
+
+    await bookmarksRepository.removeBookmark(bookmark.id);
+}
+
+export async function getBookmarks(userId: number, type: TypeBookmark) {
+    const bookmarks = await bookmarksRepository.getBookmarks(userId, type);
   
     return bookmarks;
 }
 
-export async function getSpellsBookmarks(userId: number) {
-    const bookmarks = await bookmarksRepository.getSpellsBookmarks(userId);
-  
-    return bookmarks;
-}
-
-export async function getEquipmentsBookmarks(userId: number) {
-    const bookmarks = await bookmarksRepository.getEquipmentsBookmarks(userId);
-  
-    return bookmarks;
-}
-
-export async function getMagicItemsBookmarks(userId: number) {
-    const bookmarks = await bookmarksRepository.getMagicItemsBookmarks(userId);
-  
-    return bookmarks;
-}
-
-
-async function addMonsterBookmark(userId: number, bookmark: Bookmark) {
+async function addBookmark(userId: number, type: string, bookmark: BookmarkType) {
     const bookmarkData: CreateBookmarkParams = {
         userId,
+        type,
         ...bookmark,
       };
 
-    const createdBookmark = await bookmarksRepository.addMonsterBookmark(bookmarkData);
-  
-    return createdBookmark;
-}
-
-async function addSpellBookmark(userId: number, bookmark: Bookmark) {
-    const bookmarkData: CreateBookmarkParams = {
-        userId,
-        ...bookmark,
-      };
-
-    const createdBookmark = await bookmarksRepository.addSpellBookmark(bookmarkData);
-  
-    return createdBookmark;
-}
-
-async function addEquipmentBookmark(userId: number, bookmark: Bookmark) {
-    const bookmarkData: CreateBookmarkParams = {
-        userId,
-        ...bookmark,
-      };
-
-    const createdBookmark = await bookmarksRepository.addEquipmentBookmark(bookmarkData);
-  
-    return createdBookmark;
-}
-
-async function addMagicItemBookmark(userId: number, bookmark: Bookmark) {
-    const bookmarkData: CreateBookmarkParams = {
-        userId,
-        ...bookmark,
-      };
-
-    const createdBookmark = await bookmarksRepository.addMagicItemBookmark(bookmarkData);
+    const createdBookmark = await bookmarksRepository.addBookmark(bookmarkData);
   
     return createdBookmark;
 }
 
 const bookmarksService = { 
     getBookmark,
-    getMonstersBookmarks,
-    getSpellsBookmarks,
-    getEquipmentsBookmarks,
-    getMagicItemsBookmarks,
-    addMonsterBookmark,
-    addSpellBookmark,
-    addEquipmentBookmark,
-    addMagicItemBookmark
+    removeBookmark,
+    getBookmarks,
+    addBookmark,
 };
 
 export default bookmarksService;

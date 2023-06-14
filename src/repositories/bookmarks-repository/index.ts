@@ -1,108 +1,43 @@
-import { MonsterBookmark, Prisma } from '@prisma/client';
+import { Prisma, TypeBookmark } from '@prisma/client';
 import { prisma } from '@/config';
 
 export async function getBookmark(userId: number, index: string) {
-    const monster = await prisma.monsterBookmark.findFirst({
+    return await prisma.bookmark.findFirst({
         where: {
             index,
             userId
         },
     });
-    if (monster) return monster;
+}
 
-    const spell = await prisma.spellBookmark.findFirst({
+export async function removeBookmark(id: number) {
+    await prisma.bookmark.delete({
         where: {
-            index,
-            userId
+            id
         },
     });
-    if (spell) return spell;
-
-    const equipment = await prisma.equipmentBookmark.findFirst({
-        where: {
-            index,
-            userId
-        },
-    });
-    if (equipment) return equipment;
-
-    const magicItem = await prisma.magicItemBookmark.findFirst({
-        where: {
-            index,
-            userId
-        },
-    });
-    if (magicItem) return magicItem;
-
-    return null;
 }
 
-export async function getMonstersBookmarks(userId: number) {
-    return prisma.monsterBookmark.findMany({
+export async function getBookmarks(userId: number, type: TypeBookmark) {
+    return prisma.bookmark.findMany({
         where: {
-            userId
+            userId,
+            type
         },
       })
 }
 
-export async function getSpellsBookmarks(userId: number) {
-    return prisma.spellBookmark.findMany({
-        where: {
-            userId
-        },
-      })
-}
-
-export async function getEquipmentsBookmarks(userId: number) {
-    return prisma.equipmentBookmark.findMany({
-        where: {
-            userId
-        },
-      })
-}
-
-export async function getMagicItemsBookmarks(userId: number) {
-   return prisma.magicItemBookmark.findMany({
-        where: {
-            userId
-        },
-      })
-}
-
-async function addMonsterBookmark(data: Prisma.MonsterBookmarkCreateInput): Promise<MonsterBookmark> {
-    return prisma.monsterBookmark.create({
-        data,
-      });
-}
-
-async function addSpellBookmark(data: Prisma.SpellBookmarkCreateInput) {
-    return prisma.spellBookmark.create({
-        data,
-      });
-}
-
-async function addEquipmentBookmark(data: Prisma.EquipmentBookmarkCreateInput) {
-    return prisma.equipmentBookmark.create({
-        data,
-      });
-}
-
-async function addMagicItemBookmark(data: Prisma.MagicItemBookmarkCreateInput) {
-    return prisma.magicItemBookmark.create({
+async function addBookmark(data: Prisma.BookmarkCreateInput) {
+    return prisma.bookmark.create({
         data,
       });
 }
 
 const bookmarksRepository = {
     getBookmark,
-    getMonstersBookmarks,
-    getSpellsBookmarks,
-    getEquipmentsBookmarks,
-    getMagicItemsBookmarks,
-    addMonsterBookmark,
-    addSpellBookmark,
-    addEquipmentBookmark,
-    addMagicItemBookmark
+    removeBookmark,
+    getBookmarks,
+    addBookmark,
 };
 
 export default bookmarksRepository;

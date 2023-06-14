@@ -11,19 +11,16 @@ datasource db {
 }
 
 model User {
-  id                  Int                   @id @default(autoincrement())
-  username            String                @unique @db.VarChar(255)
-  email               String                @unique @db.VarChar(255)
-  password            String                @db.VarChar(255)
-  avatar              String
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime              @updatedAt
-  Session             Session[]
-  Character           Character[]
-  MonsterBookmarks    MonsterBookmark[]
-  SpellsBookmarks     SpellBookmark[]
-  EquipmentsBookmarks EquipmentBookmark[]
-  MagicItemsBookmarks MagicItemBookmark[]
+  id        Int         @id @default(autoincrement())
+  username  String      @unique @db.VarChar(255)
+  email     String      @unique @db.VarChar(255)
+  password  String      @db.VarChar(255)
+  avatar    String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Session   Session[]
+  Character Character[]
+  Bookmark  Bookmark[]
 }
 
 model Session {
@@ -111,42 +108,20 @@ model Character {
   updatedAt          DateTime           @updatedAt
 }
 
-model MonsterBookmark {
-  id        Int      @id @default(autoincrement())
-  index     String
-  name      String
-  userId    Int?
-  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum TypeBookmark {
+  MONSTER
+  SPELL
+  EQUIPMENT
+  MAGIC_ITEM
 }
 
-model SpellBookmark {
-  id        Int      @id @default(autoincrement())
+model Bookmark {
+  id        Int          @id @default(autoincrement())
   index     String
   name      String
+  type      TypeBookmark
   userId    Int?
-  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model EquipmentBookmark {
-  id        Int      @id @default(autoincrement())
-  index     String
-  name      String
-  userId    Int?
-  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model MagicItemBookmark {
-  id        Int      @id @default(autoincrement())
-  index     String
-  name      String
-  userId    Int?
-  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  User      User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
