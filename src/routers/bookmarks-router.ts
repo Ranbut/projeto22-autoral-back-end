@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { 
+import { getBookmark,
     getMonstersBookmarks, getSpellsBookmarks, getEquipmentsBookmarks, getMagicItemsBookmarks,
     addMonsterBookmark, addSpellBookmark, addEquipmentBookmark, addMagicItemBookmark 
 } from '@/controllers';
@@ -10,6 +10,7 @@ const bookmarksRouter = Router();
 
 bookmarksRouter
     .all('/*', authenticateToken)
+    .get('/user/:index', getBookmark)
     .get('/monsters', getMonstersBookmarks)
     .get('/spells', getSpellsBookmarks)
     .get('/equipments', getEquipmentsBookmarks)

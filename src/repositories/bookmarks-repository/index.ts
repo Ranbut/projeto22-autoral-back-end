@@ -1,6 +1,42 @@
 import { MonsterBookmark, Prisma } from '@prisma/client';
 import { prisma } from '@/config';
 
+export async function getBookmark(userId: number, index: string) {
+    const monster = await prisma.monsterBookmark.findFirst({
+        where: {
+            index,
+            userId
+        },
+    });
+    if (monster) return monster;
+
+    const spell = await prisma.spellBookmark.findFirst({
+        where: {
+            index,
+            userId
+        },
+    });
+    if (spell) return spell;
+
+    const equipment = await prisma.equipmentBookmark.findFirst({
+        where: {
+            index,
+            userId
+        },
+    });
+    if (equipment) return equipment;
+
+    const magicItem = await prisma.magicItemBookmark.findFirst({
+        where: {
+            index,
+            userId
+        },
+    });
+    if (magicItem) return magicItem;
+
+    return null;
+}
+
 export async function getMonstersBookmarks(userId: number) {
     return prisma.monsterBookmark.findMany({
         where: {
@@ -58,6 +94,7 @@ async function addMagicItemBookmark(data: Prisma.MagicItemBookmarkCreateInput) {
 }
 
 const bookmarksRepository = {
+    getBookmark,
     getMonstersBookmarks,
     getSpellsBookmarks,
     getEquipmentsBookmarks,

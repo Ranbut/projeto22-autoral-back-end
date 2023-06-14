@@ -1,6 +1,12 @@
 import { Bookmark, CreateBookmarkParams } from '@/protocols';
 import bookmarksRepository from '@/repositories/bookmarks-repository';
 
+export async function getBookmark(userId: number, index: string) {
+    const bookmark = await bookmarksRepository.getBookmark(userId, index);
+  
+    return bookmark;
+}
+
 export async function getMonstersBookmarks(userId: number) {
     const bookmarks = await bookmarksRepository.getMonstersBookmarks(userId);
   
@@ -71,6 +77,7 @@ async function addMagicItemBookmark(userId: number, bookmark: Bookmark) {
 }
 
 const bookmarksService = { 
+    getBookmark,
     getMonstersBookmarks,
     getSpellsBookmarks,
     getEquipmentsBookmarks,

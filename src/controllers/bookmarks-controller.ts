@@ -3,6 +3,17 @@ import httpStatus from 'http-status';
 import bookmarksService from '@/services/bookmarks-service';
 import { AuthenticatedRequest } from '@/middlewares';
 
+export async function getBookmark(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    const { userId } = req;
+    const { index } = req.params;
+    try {
+        const bookmark = await bookmarksService.getBookmark(userId, index);
+        return res.status(httpStatus.OK).send(bookmark);
+    } catch (error) {
+        next(error);
+    }
+}
+
 export async function getMonstersBookmarks(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
 
