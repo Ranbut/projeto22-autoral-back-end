@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const bookmarkSchema = Joi.object ({
+export const historySchema = Joi.object ({
   index: Joi.string().required(),
   name: Joi.string().required(),
   type: Joi.string().required()
