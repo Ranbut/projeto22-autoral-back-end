@@ -32,6 +32,12 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'CannotBookmarkError') {
+    return res.status(httpStatus.CONFLICT).send({
+      message: err.message,
+    });
+  }
+
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
     error: 'InternalServerError',
     message: 'Internal Server Error',

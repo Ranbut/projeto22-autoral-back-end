@@ -3,3 +3,4 @@ export * from './session-repository';
 export * from './characters-repository';
 //export * from './spells-repository';
 export * from './bookmarks-repository';
+export * from './history-repository';

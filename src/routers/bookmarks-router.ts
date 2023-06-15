@@ -11,6 +11,6 @@ bookmarksRouter
     .get('/user/:index', getBookmark)
     .delete('/user/:index', removeBookmark)
     .get('/:type', getBookmarks)
-    .post('/:type', validateBody(bookmarkSchema), addBookmark)
+    .post('/', validateBody(bookmarkSchema), addBookmark)
 
 export { bookmarksRouter };

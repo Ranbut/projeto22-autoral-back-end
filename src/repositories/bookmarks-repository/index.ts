@@ -1,4 +1,4 @@
-import { Prisma, TypeBookmark } from '@prisma/client';
+import { Prisma, TypeInfo } from '@prisma/client';
 import { prisma } from '@/config';
 
 export async function getBookmark(userId: number, index: string) {
@@ -18,12 +18,13 @@ export async function removeBookmark(id: number) {
     });
 }
 
-export async function getBookmarks(userId: number, type: TypeBookmark) {
+export async function getBookmarks(userId: number, type: TypeInfo) {
     return prisma.bookmark.findMany({
         where: {
             userId,
             type
         },
+        orderBy: { name: 'asc' },
       })
 }
 

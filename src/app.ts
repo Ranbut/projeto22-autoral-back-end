@@ -4,7 +4,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 
 import { loadEnv, connectDb, disconnectDB } from '@/config';
-import { usersRouter, authenticationRouter, charactersRouter, bookmarksRouter } from '@/routers';
+import { usersRouter, authenticationRouter, charactersRouter, bookmarksRouter, historyRouter } from '@/routers';
 import { handleApplicationErrors } from './middlewares';
 
 loadEnv();
@@ -18,6 +18,7 @@ app
   .use('/auth', authenticationRouter)
   .use('/char', charactersRouter)
   .use('/bookmarks', bookmarksRouter)
+  .use('/history', historyRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {
