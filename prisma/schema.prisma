@@ -20,6 +20,7 @@ model User {
   updatedAt DateTime    @updatedAt
   Session   Session[]
   Character Character[]
+  Bookmark  Bookmark[]
 }
 
 model Session {
@@ -105,4 +106,22 @@ model Character {
   other_notes        String?
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
+}
+
+enum TypeBookmark {
+  MONSTER
+  SPELL
+  EQUIPMENT
+  MAGIC_ITEM
+}
+
+model Bookmark {
+  id        Int          @id @default(autoincrement())
+  index     String
+  name      String
+  type      TypeBookmark
+  userId    Int?
+  User      User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
