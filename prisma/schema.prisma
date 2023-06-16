@@ -21,6 +21,11 @@ model User {
   Session   Session[]
   Character Character[]
   Bookmark  Bookmark[]
+<<<<<<< Updated upstream
+=======
+  Historic  History[]
+  Spell     Spell[]
+>>>>>>> Stashed changes
 }
 
 model Session {
@@ -116,12 +121,36 @@ enum TypeBookmark {
 }
 
 model Bookmark {
-  id        Int          @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   index     String
   name      String
+<<<<<<< Updated upstream
   type      TypeBookmark
+=======
+  type      TypeInfo
   userId    Int?
-  User      User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model History {
+  id        Int      @id @default(autoincrement())
+  index     String
+  name      String
+  type      TypeInfo
+>>>>>>> Stashed changes
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Spell {
+  id     Int   @id @default(autoincrement())
+  userId Int?
+  User   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  spell  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

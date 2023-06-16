@@ -12,7 +12,7 @@ export async function createUser({ username, email, password }: CreateUserParams
     username,
     email,
     password: hashedPassword,
-    avatar: 'defaultImage'
+    avatar: 'https://cdn-icons-png.flaticon.com/512/634/634012.png'
   });
 }
 

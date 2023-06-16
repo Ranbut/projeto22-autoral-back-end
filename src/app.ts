@@ -4,7 +4,11 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 
 import { loadEnv, connectDb, disconnectDB } from '@/config';
+<<<<<<< Updated upstream
 import { usersRouter, authenticationRouter, charactersRouter, bookmarksRouter } from '@/routers';
+=======
+import { usersRouter, authenticationRouter, charactersRouter, bookmarksRouter, historyRouter, spellsRouter } from '@/routers';
+>>>>>>> Stashed changes
 import { handleApplicationErrors } from './middlewares';
 
 loadEnv();
@@ -17,6 +21,7 @@ app
   .use('/users', usersRouter)
   .use('/auth', authenticationRouter)
   .use('/char', charactersRouter)
+  .use('/spells', spellsRouter)
   .use('/bookmarks', bookmarksRouter)
   .use(handleApplicationErrors);
 

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getSpell, addSpell, removeSpell } from '@/controllers';
+import { getSpell, getAllSpells, addSpell, removeSpell } from '@/controllers';
 import { authenticateToken, validateBody } from '@/middlewares';
 import { spellSchema } from '@/schemas';
 
@@ -7,8 +7,9 @@ const spellsRouter = Router();
 
 spellsRouter
     .all('/*', authenticateToken)
+    .get('/', getAllSpells)
     .get('/:id', getSpell)
     .delete('/:id', removeSpell)
-    .post('/', validateBody(spellSchema), addSpell)
+    .post('/', addSpell)
 
 export { spellsRouter };
