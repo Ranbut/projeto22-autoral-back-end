@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getBookmark, removeBookmark, addBookmark, getBookmarks
+import { getBookmark, removeBookmark, addBookmark, getAllBookmarks
 } from '@/controllers';
 import { authenticateToken, validateBody } from '@/middlewares';
 import { bookmarkSchema } from '@/schemas';
@@ -8,9 +8,9 @@ const bookmarksRouter = Router();
 
 bookmarksRouter
     .all('/*', authenticateToken)
-    .get('/user/:index', getBookmark)
-    .delete('/user/:index', removeBookmark)
-    .get('/:type', getBookmarks)
+    .get('/:index', getBookmark)
+    .delete('/:index', removeBookmark)
+    .get('/', getAllBookmarks)
     .post('/', validateBody(bookmarkSchema), addBookmark)
 
 export { bookmarksRouter };
