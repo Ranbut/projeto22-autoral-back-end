@@ -23,6 +23,7 @@ model User {
   Bookmark  Bookmark[]
   Historic  History[]
   Spell     Spell[]
+  Monster   Monster[]
 }
 
 model Session {
@@ -140,10 +141,19 @@ model History {
 }
 
 model Spell {
-  id     Int   @id @default(autoincrement())
-  userId Int?
-  User   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  spell  Json
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  spell     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Monster {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  monster   Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
