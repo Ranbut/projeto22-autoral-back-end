@@ -2,7 +2,6 @@ import { Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import bookmarksService from '@/services/bookmarks-service';
 import { AuthenticatedRequest } from '@/middlewares';
-import { TypeInfo } from '@prisma/client';
 
 export async function getBookmark(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
@@ -27,14 +26,12 @@ export async function removeBookmark(req: AuthenticatedRequest, res: Response, n
     }
 }
 
-export async function getBookmarks(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export async function getAllBookmarks(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
-    const { type } = req.params;
 
     try {
-        const bookmarkType = type.toUpperCase() as TypeInfo;
-        const bookmark = await bookmarksService.getBookmarks(userId, bookmarkType);
-        return res.status(httpStatus.OK).send(bookmark);
+        const bookmarks = await bookmarksService.getAllBookmarks(userId);
+        return res.status(httpStatus.OK).send(bookmarks);
     } catch (error) {
         next(error);
     }
@@ -42,11 +39,10 @@ export async function getBookmarks(req: AuthenticatedRequest, res: Response, nex
 
 export async function addBookmark(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
-    const { type } = req.params;
     const bookmarkData = req.body;
 
     try {
-        await bookmarksService.addBookmark(userId, type, bookmarkData);
+        await bookmarksService.addBookmark(userId, bookmarkData);
         return res.sendStatus(httpStatus.CREATED);
     } catch (error) {
         next(error);

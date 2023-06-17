@@ -18,11 +18,10 @@ export async function removeBookmark(id: number) {
     });
 }
 
-export async function getBookmarks(userId: number, type: TypeInfo) {
+export async function getAllBookmarks(userId: number) {
     return prisma.bookmark.findMany({
         where: {
-            userId,
-            type
+            userId
         },
         orderBy: { name: 'asc' },
       })
@@ -37,7 +36,7 @@ async function addBookmark(data: Prisma.BookmarkCreateInput) {
 const bookmarksRepository = {
     getBookmark,
     removeBookmark,
-    getBookmarks,
+    getAllBookmarks,
     addBookmark,
 };
 

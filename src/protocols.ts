@@ -13,7 +13,7 @@ export type RequestError = {
   message: string;
 };
 
-export type BookmarkType = Omit<Bookmark, 'id'| 'userId' | 'createdAt' | 'updatedAt'>;
+export type BookmarkType = Omit<Bookmark, 'userId' | 'createdAt' | 'updatedAt'>;
 
 export type CreateCharacterParams = Omit<Character, 'id' | 'createdAt' | 'updatedAt'>;
 export type CreateSpellParams = Omit<Spell, 'id' | 'createdAt' | 'updatedAt'>;
