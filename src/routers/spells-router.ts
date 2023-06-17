@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { getSpell, getAllSpells, addSpell, removeSpell } from '@/controllers';
-import { authenticateToken, validateBody } from '@/middlewares';
-import { spellSchema } from '@/schemas';
+import { authenticateToken } from '@/middlewares';
 
 const spellsRouter = Router();
 
