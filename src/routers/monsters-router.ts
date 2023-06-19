@@ -9,6 +9,6 @@ monstersRouter
     .get('/', getAllMonsters)
     .get('/:id', getMonster)
     .delete('/:id', removeMonsters)
-    .post('/', addMonster)
+    .post('/', addMonster);
 
 export { monstersRouter };

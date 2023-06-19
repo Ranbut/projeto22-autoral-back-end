@@ -1,4 +1,4 @@
-import { Bookmark, Character, Equipment, History, Monster, Spell } from "@prisma/client";
+import { Bookmark, Character, Equipment, History, MagicItem, Monster, Spell } from "@prisma/client";
 
 export type ApplicationError = {
   name: string;
@@ -19,5 +19,6 @@ export type CreateCharacterParams = Omit<Character, 'id' | 'createdAt' | 'update
 export type CreateSpellParams = Omit<Spell, 'id' | 'createdAt' | 'updatedAt'>;
 export type CreateMonsterParams = Omit<Monster, 'id' | 'createdAt' | 'updatedAt'>;
 export type CreateEquipmentParams = Omit<Equipment, 'id' | 'createdAt' | 'updatedAt'>;
+export type CreateMagicItemParams = Omit<MagicItem, 'id' | 'createdAt' | 'updatedAt'>;
 export type CreateBookmarkParams = Omit<Bookmark, 'id' | 'createdAt' | 'updatedAt'>;
 export type CreateHistoryParams = Omit<History, 'id' | 'createdAt' | 'updatedAt'>;

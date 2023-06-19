@@ -9,6 +9,6 @@ historyRouter
     .all('/*', authenticateToken)
     .get('/', getAllHistory)
     .delete('/', deleteAllHistory)
-    .post('/', validateBody(historySchema), addHistory)
+    .post('/', validateBody(historySchema), addHistory);
 
 export { historyRouter };

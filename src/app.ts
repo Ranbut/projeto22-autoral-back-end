@@ -4,7 +4,8 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 
 import { loadEnv, connectDb, disconnectDB } from '@/config';
-import { usersRouter, authenticationRouter, charactersRouter, monstersRouter, spellsRouter, bookmarksRouter, historyRouter, equipmentsRouter } from '@/routers';
+import { usersRouter, authenticationRouter, charactersRouter, monstersRouter,
+   spellsRouter, bookmarksRouter, historyRouter, equipmentsRouter, magicItemsRouter } from '@/routers';
 import { handleApplicationErrors } from './middlewares';
 
 loadEnv();
@@ -20,6 +21,7 @@ app
   .use('/monsters', monstersRouter)
   .use('/spells', spellsRouter)
   .use('/equipments', equipmentsRouter)
+  .use('/magic-items', magicItemsRouter)
   .use('/bookmarks', bookmarksRouter)
   .use('/history', historyRouter)
   .use(handleApplicationErrors);
