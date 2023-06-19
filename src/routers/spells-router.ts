@@ -9,6 +9,6 @@ spellsRouter
     .get('/', getAllSpells)
     .get('/:id', getSpell)
     .delete('/:id', removeSpell)
-    .post('/', addSpell)
+    .post('/', addSpell);
 
 export { spellsRouter };

@@ -9,6 +9,6 @@ equipmentsRouter
     .get('/', getAllEquipments)
     .get('/:id', getEquipment)
     .delete('/:id', removeEquipment)
-    .post('/', addEquipment)
+    .post('/', addEquipment);
 
 export { equipmentsRouter };

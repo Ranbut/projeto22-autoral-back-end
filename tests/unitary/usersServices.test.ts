@@ -49,7 +49,7 @@ describe('createUser', () => {
       username: 'testuser',
       email: 'test@example.com',
       password: 'hashedPassword',
-      avatar: 'defaultImage',
+      avatar: 'https://cdn-icons-png.flaticon.com/512/634/634012.png',
     });
 
     expect(result).toEqual(createdMockUser);
