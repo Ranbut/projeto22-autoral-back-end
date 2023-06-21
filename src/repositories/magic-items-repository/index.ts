@@ -18,12 +18,21 @@ export async function getAllMagicItems(userId: number) {
     });
 }
 
-
 export async function removeMagicItem(id: number) {
     await prisma.magicItem.delete({
         where: {
             id
         },
+    });
+}
+
+export async function editMagicItem(id: number, magicItemData: any) {
+    await prisma.magicItem.update({
+        where: { id },
+        data: {
+            magicItem: magicItemData,
+            updatedAt: new Date()
+          }
     });
 }
 
@@ -37,6 +46,7 @@ const magicItemsRepository = {
     getMagicItem,
     getAllMagicItems,
     removeMagicItem,
+    editMagicItem,
     addMagicItem
 };
 

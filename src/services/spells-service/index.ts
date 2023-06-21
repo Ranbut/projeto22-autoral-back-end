@@ -21,6 +21,14 @@ async function removeSpell(userId: number, spellId: number) {
   await spellsRepository.removeSpell(spellId);
 }
 
+async function editSpell(userId: number, spellId: number, spellBody: any) {
+  await getSpell(userId, spellId);
+
+  const spell = await spellsRepository.editSpell(spellId, spellBody);
+
+  return spell;
+}
+
 async function addSpell(userId: number, spellsBody: any) {
   const spellData: CreateSpellParams = {
     userId,
@@ -36,6 +44,7 @@ const spellsService = {
   getSpell,
   getAllSpells,
   removeSpell,
+  editSpell,
   addSpell 
 };
 

@@ -7,9 +7,9 @@ export async function getMagicItem(req: AuthenticatedRequest, res: Response, nex
     const { userId } = req;
     const { id } = req.params;
     try {
-        const spell = await magicItemsService.getMagicItem(userId, Number(id));
+        const magicItem = await magicItemsService.getMagicItem(userId, Number(id));
 
-        return res.status(httpStatus.OK).send(spell);
+        return res.status(httpStatus.OK).send(magicItem);
     } catch (error) {
         next(error);
     }
@@ -18,9 +18,9 @@ export async function getMagicItem(req: AuthenticatedRequest, res: Response, nex
 export async function getAllMagicItems(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
     try {
-        const spells = await magicItemsService.getAllMagicItems(userId);
+        const magicItems = await magicItemsService.getAllMagicItems(userId);
 
-        return res.status(httpStatus.OK).send(spells);
+        return res.status(httpStatus.OK).send(magicItems);
     } catch (error) {
         next(error);
     }
@@ -38,13 +38,26 @@ export async function removeMagicItem(req: AuthenticatedRequest, res: Response, 
     }
 }
 
+export async function editMagicItem(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    const { userId } = req;
+    const { id } = req.params;
+    const magicItemData = req.body;
+    try {
+        const magicItem = await magicItemsService.editMagicItem(userId, Number(id), magicItemData);
+
+        return res.status(httpStatus.OK).send(magicItem);
+    } catch (error) {
+        next(error);
+    }
+}
+
 export async function addMagicItem(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
-    const spellData = req.body;
+    const magicItemData = req.body;
 
     try {
-        await magicItemsService.addMagicItem(userId, spellData);
-        return res.sendStatus(httpStatus.CREATED);
+        const magicItem = await magicItemsService.addMagicItem(userId, magicItemData);
+        return res.status(httpStatus.CREATED).send(magicItem);
     } catch (error) {
         console.log(error);
         next(error);

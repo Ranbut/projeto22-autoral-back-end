@@ -18,12 +18,21 @@ export async function getAllEquipments(userId: number) {
     });
 }
 
-
 export async function removeEquipment(id: number) {
     await prisma.equipment.delete({
         where: {
             id
         },
+    });
+}
+
+export async function editEquipment(id: number, equipmentData: any) {
+    await prisma.equipment.update({
+        where: { id },
+        data: {
+            equipment: equipmentData,
+            updatedAt: new Date()
+          }
     });
 }
 
@@ -37,6 +46,7 @@ const equipmentsRepository = {
     getEquipment,
     getAllEquipments,
     removeEquipment,
+    editEquipment,
     addEquipment
 };
 

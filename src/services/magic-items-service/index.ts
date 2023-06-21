@@ -21,6 +21,14 @@ async function removeMagicItem(userId: number, magicItemId: number) {
   await magicItemsRepository.removeMagicItem(magicItemId);
 }
 
+async function editMagicItem(userId: number, magicItemId: number, magicItemBody: any) {
+  await getMagicItem(userId, magicItemId);
+
+  const magicItem = await magicItemsRepository.editMagicItem(magicItemId, magicItemBody);
+
+  return magicItem;
+}
+
 async function addMagicItem(userId: number, magicItemsBody: any) {
   const magicItemData: CreateMagicItemParams = {
     userId,
@@ -36,6 +44,7 @@ const magicItemsService = {
   getMagicItem,
   getAllMagicItems,
   removeMagicItem,
+  editMagicItem,
   addMagicItem 
 };
 
