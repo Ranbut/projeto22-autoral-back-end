@@ -27,8 +27,18 @@ export async function removeMonster(id: number) {
     });
 }
 
+export async function editMonster(id: number, monsterData: any) {
+    await prisma.monster.update({
+      where: { id },
+      data: {
+        monster: monsterData,
+        updatedAt: new Date()
+      }
+    });
+  }
+
 async function addMonster(data: Prisma.MonsterCreateInput) {
-    return prisma.monster.create({
+    return await prisma.monster.create({
         data
     });
 }
@@ -37,6 +47,7 @@ const monstersRepository = {
     getMonster,
     getAllMonsters,
     removeMonster,
+    editMonster,
     addMonster
 };
 

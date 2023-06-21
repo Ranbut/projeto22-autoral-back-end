@@ -21,6 +21,14 @@ async function removeEquipment(userId: number, equipmentId: number) {
   await equipmentsRepository.removeEquipment(equipmentId);
 }
 
+async function editEquipment(userId: number, equipmentId: number, equipmentBody: any) {
+  await getEquipment(userId, equipmentId);
+
+  const equipment = await equipmentsRepository.editEquipment(equipmentId, equipmentBody);
+
+  return equipment;
+}
+
 async function addEquipment(userId: number, equipmentsBody: any) {
   const equipmentData: CreateEquipmentParams = {
     userId,
@@ -36,6 +44,7 @@ const equipmentsService = {
   getEquipment,
   getAllEquipments,
   removeEquipment,
+  editEquipment,
   addEquipment 
 };
 

@@ -18,12 +18,21 @@ export async function getAllSpells(userId: number) {
     });
 }
 
-
 export async function removeSpell(id: number) {
     await prisma.spell.delete({
         where: {
             id
         },
+    });
+}
+
+export async function editSpell(id: number, spellData: any) {
+    await prisma.spell.update({
+        where: { id },
+        data: {
+            spell: spellData,
+            updatedAt: new Date()
+          }
     });
 }
 
@@ -37,6 +46,7 @@ const spellsRepository = {
     getSpell,
     getAllSpells,
     removeSpell,
+    editSpell,
     addSpell
 };
 

@@ -6,6 +6,7 @@ import { AuthenticatedRequest } from '@/middlewares';
 export async function getMonster(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
     const { id } = req.params;
+
     try {
         const monster = await monstersService.getMonster(userId, Number(id));
 
@@ -17,6 +18,7 @@ export async function getMonster(req: AuthenticatedRequest, res: Response, next:
 
 export async function getAllMonsters(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
+
     try {
         const monsters = await monstersService.getAllMonsters(userId);
 
@@ -26,9 +28,10 @@ export async function getAllMonsters(req: AuthenticatedRequest, res: Response, n
     }
 }
 
-export async function removeMonsters(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export async function removeMonster(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
     const { id } = req.params;
+
     try {
         await monstersService.removeMonster(userId, Number(id));
 
@@ -38,13 +41,27 @@ export async function removeMonsters(req: AuthenticatedRequest, res: Response, n
     }
 }
 
+export async function editMonster(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+    const { userId } = req;
+    const { id } = req.params;
+    const monsterData = req.body;
+    try {
+         const monster = await monstersService.editMonster(userId, Number(id), monsterData);
+
+        return res.status(httpStatus.OK).send(monster);
+    } catch (error) {
+        console.log(error)
+        next(error);
+    }
+}
+
 export async function addMonster(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const { userId } = req;
     const monsterData = req.body;
 
     try {
-        await monstersService.addMonster(userId, monsterData);
-        return res.sendStatus(httpStatus.CREATED);
+        const monster = await monstersService.addMonster(userId, monsterData);
+        return res.status(httpStatus.CREATED).send(monster);
     } catch (error) {
         console.log(error);
         next(error);
