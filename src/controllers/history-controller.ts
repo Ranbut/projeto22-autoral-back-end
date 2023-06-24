@@ -31,7 +31,7 @@ export async function addHistory(req: AuthenticatedRequest, res: Response, next:
     
     try {
         const history = await historyService.addHistory(userId, index, name, type);
-        return res.status(httpStatus.OK).send(history);
+        return res.status(httpStatus.CREATED).send(history);
     } catch (error) {
         next(error);
     }

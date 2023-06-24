@@ -5,3 +5,4 @@ export * from './spells-factory';
 export * from './equipments-factory';
 export * from './magic-items-factory';
 export * from './bookmarks-factory';
+export * from './history-factory';
