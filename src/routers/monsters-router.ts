@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getMonster, getAllMonsters, addMonster, editMonster, removeMonster } from '@/controllers';
-import { authenticateToken } from '@/middlewares';
+import { authenticateToken, validateBody } from '@/middlewares';
+import { createMonsterSchema } from '@/schemas';
 
 const monstersRouter = Router();
 
@@ -9,7 +10,7 @@ monstersRouter
     .get('/', getAllMonsters)
     .get('/:id', getMonster)
     .delete('/:id', removeMonster)
-    .put('/:id', editMonster)
-    .post('/', addMonster);
+    .put('/:id', validateBody(createMonsterSchema), editMonster)
+    .post('/', validateBody(createMonsterSchema), addMonster);
 
 export { monstersRouter };
