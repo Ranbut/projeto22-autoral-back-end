@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getSpell, getAllSpells, addSpell, editSpell, removeSpell } from '@/controllers';
-import { authenticateToken } from '@/middlewares';
+import { authenticateToken, validateBody } from '@/middlewares';
+import { createSpellSchema } from '@/schemas';
 
 const spellsRouter = Router();
 
@@ -9,7 +10,7 @@ spellsRouter
     .get('/', getAllSpells)
     .get('/:id', getSpell)
     .delete('/:id', removeSpell)
-    .put('/:id', editSpell)
-    .post('/', addSpell);
+    .put('/:id', validateBody(createSpellSchema), editSpell)
+    .post('/', validateBody(createSpellSchema), addSpell);
 
 export { spellsRouter };
