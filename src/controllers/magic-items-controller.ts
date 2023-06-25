@@ -59,7 +59,6 @@ export async function addMagicItem(req: AuthenticatedRequest, res: Response, nex
         const magicItem = await magicItemsService.addMagicItem(userId, magicItemData);
         return res.status(httpStatus.CREATED).send(magicItem);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }

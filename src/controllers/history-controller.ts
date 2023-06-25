@@ -20,7 +20,6 @@ export async function deleteAllHistory(req: AuthenticatedRequest, res: Response,
         await historyService.deleteAllHistory(userId);
         return res.sendStatus(httpStatus.OK);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }

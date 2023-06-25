@@ -11,7 +11,6 @@ export async function createCharacter(req: AuthenticatedRequest, res: Response, 
         const character = await charactersService.createCharacter(userId, characterData);
         return res.status(httpStatus.CREATED).send(character);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }
