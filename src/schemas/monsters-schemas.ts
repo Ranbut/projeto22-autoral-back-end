@@ -1,5 +1,32 @@
 import Joi from 'joi';
 
 export const createMonsterSchema = Joi.object({
-    monster: Joi.object().required()
+    index: Joi.string().required(),
+    name: Joi.string().required(),
+    alignment: Joi.string().required(),
+    challenge_rating: Joi.number().required(),
+    strength: Joi.number().required(),
+    dexterity: Joi.number().required(),
+    constitution: Joi.number().required(),
+    intelligence: Joi.number().required(),
+    wisdom: Joi.number().required(),
+    charisma: Joi.number().required(),
+    hit_dice: Joi.string().required(),
+    hit_points: Joi.number().required(),
+    hit_points_roll: Joi.string().required(),
+    type: Joi.string().required(),
+    size: Joi.string().required(),
+    xp: Joi.number().required(),
+    armor_class: Joi.required(),
+    actions: Joi.optional(),
+    legendary_actions: Joi.optional(),
+    damage_vulnerabilities: Joi.optional(),
+    proficiencies: Joi.optional(),
+    damage_resistances: Joi.optional(),
+    damage_immunities: Joi.optional(),
+    condition_immunities: Joi.optional(),
+    special_abilities: Joi.optional(),
+    languages: Joi.optional(),
+    senses: Joi.optional(),
+    speed: Joi.optional(),
 });

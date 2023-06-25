@@ -156,9 +156,11 @@ describe('POST /equipments', () => {
             const token = await generateValidToken(user);
 
             const equipmentBody = {
-                equipment: {
-                    name: faker.name.firstName()
-                }
+                index: "club",
+                name: "Club",
+                cost: { quantity: 1, unit: "sp" },
+                weight: 2,
+                equipment_category: { name: "Weapon" }
             };
 
             const response = await server.post('/equipments').set('Authorization', `Bearer ${token}`).send(equipmentBody);
@@ -205,9 +207,11 @@ describe('PUT /equipments/:id', () => {
             const token = await generateValidToken(user);
 
             const equipmentBody = {
-                equipment: {
-                    name: faker.name.firstName()
-                }
+                index: "club",
+                name: "Club",
+                cost: { quantity: 1, unit: "sp" },
+                weight: 2,
+                equipment_category: { name: "Weapon" }
             };
 
             const response = await server.put("/equipments/1").set('Authorization', `Bearer ${token}`).send(equipmentBody);
@@ -221,9 +225,11 @@ describe('PUT /equipments/:id', () => {
             const equipment = await createEquipment(user.id);
 
             const equipmentBody = {
-                equipment: {
-                    name: faker.name.firstName()
-                }
+                index: "club",
+                name: "Club",
+                cost: { quantity: 1, unit: "sp" },
+                weight: 2,
+                equipment_category: { name: "Weapon" }
             };
 
             const response = await server.put(`/equipments/${equipment.id}`).set('Authorization', `Bearer ${token}`).send(equipmentBody);

@@ -156,9 +156,22 @@ describe('POST /monsters', () => {
             const token = await generateValidToken(user);
 
             const monsterBody = {
-                monster: {
-                    name: faker.name.firstName()
-                }
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                alignment: "Neutral",
+                challenge_rating: 0,
+                strength: 10,
+                dexterity: 10,
+                constitution: 10,
+                intelligence: 10,
+                wisdom: 10,
+                charisma: 10,
+                hit_dice: "2d12",
+                hit_points: 28,
+                hit_points_roll: "2d12+4",
+                type: "Humanoid",
+                size: "Medium",
+                xp: 120,
             };
 
             const response = await server.post('/monsters').set('Authorization', `Bearer ${token}`).send(monsterBody);
@@ -205,9 +218,22 @@ describe('PUT /monsters/:id', () => {
             const token = await generateValidToken(user);
 
             const monsterBody = {
-                monster: {
-                    name: faker.name.firstName()
-                }
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                alignment: "Neutral",
+                challenge_rating: 0,
+                strength: 10,
+                dexterity: 10,
+                constitution: 10,
+                intelligence: 10,
+                wisdom: 10,
+                charisma: 10,
+                hit_dice: "2d12",
+                hit_points: 28,
+                hit_points_roll: "2d12+4",
+                type: "Humanoid",
+                size: "Medium",
+                xp: 120,
             };
 
             const response = await server.put("/monsters/1").set('Authorization', `Bearer ${token}`).send(monsterBody);
@@ -221,9 +247,22 @@ describe('PUT /monsters/:id', () => {
             const monster = await createMonster(user.id);
 
             const monsterBody = {
-                monster: {
-                    name: faker.name.firstName()
-                }
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                alignment: "Neutral",
+                challenge_rating: 0,
+                strength: 10,
+                dexterity: 10,
+                constitution: 10,
+                intelligence: 10,
+                wisdom: 10,
+                charisma: 10,
+                hit_dice: "2d12",
+                hit_points: 28,
+                hit_points_roll: "2d12+4",
+                type: "Humanoid",
+                size: "Medium",
+                xp: 120,
             };
 
             const response = await server.put(`/monsters/${monster.id}`).set('Authorization', `Bearer ${token}`).send(monsterBody);

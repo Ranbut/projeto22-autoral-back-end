@@ -156,8 +156,15 @@ describe('POST /spells', () => {
             const token = await generateValidToken(user);
 
             const spellBody = {
-                spell: {
-                    name: faker.name.firstName()
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                range: "40 feet",
+                ritual: false,
+                duration: "Instantaneous",
+                casting_time: "1 action",
+                level: 3,
+                school: {
+                    name: "Evocation",
                 }
             };
 
@@ -205,8 +212,15 @@ describe('PUT /spells/:id', () => {
             const token = await generateValidToken(user);
 
             const spellBody = {
-                spell: {
-                    name: faker.name.firstName()
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                range: "40 feet",
+                ritual: false,
+                duration: "Instantaneous",
+                casting_time: "1 action",
+                level: 3,
+                school: {
+                    name: "Evocation",
                 }
             };
 
@@ -221,8 +235,15 @@ describe('PUT /spells/:id', () => {
             const spell = await createSpell(user.id);
 
             const spellBody = {
-                spell: {
-                    name: faker.name.firstName()
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                range: "40 feet",
+                ritual: false,
+                duration: "Instantaneous",
+                casting_time: "1 action",
+                level: 3,
+                school: {
+                    name: "Evocation",
                 }
             };
 
