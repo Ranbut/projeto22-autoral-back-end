@@ -50,7 +50,6 @@ export async function editMonster(req: AuthenticatedRequest, res: Response, next
 
         return res.status(httpStatus.OK).send(monster);
     } catch (error) {
-        console.log(error)
         next(error);
     }
 }
@@ -63,7 +62,6 @@ export async function addMonster(req: AuthenticatedRequest, res: Response, next:
         const monster = await monstersService.addMonster(userId, monsterData);
         return res.status(httpStatus.CREATED).send(monster);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }

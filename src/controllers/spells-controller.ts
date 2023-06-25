@@ -63,7 +63,6 @@ export async function addSpell(req: AuthenticatedRequest, res: Response, next: N
         const spell = await spellsService.addSpell(userId, spellData);
         return res.status(httpStatus.CREATED).send(spell);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }

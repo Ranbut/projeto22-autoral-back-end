@@ -21,7 +21,6 @@ export async function removeBookmark(req: AuthenticatedRequest, res: Response, n
         await bookmarksService.removeBookmark(userId, index);
         return res.sendStatus(httpStatus.OK);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }

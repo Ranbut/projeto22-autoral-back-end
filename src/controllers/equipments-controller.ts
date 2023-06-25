@@ -63,7 +63,6 @@ export async function addEquipment(req: AuthenticatedRequest, res: Response, nex
         const equipment = await equipmentsService.addEquipment(userId, equipmentData);
         return res.status(httpStatus.CREATED).send(equipment);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }
