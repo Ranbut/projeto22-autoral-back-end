@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import { cleanDb, generateValidToken } from '../helpers';
 import app, { init } from '@/app';
-import { createMonster, createUser } from '../factories';
+import { createSpell, createUser } from '../factories';
 
 beforeAll(async () => {
     await init();
@@ -16,9 +16,9 @@ beforeEach(async () => {
 
 const server = supertest(app);
 
-describe('GET /monsters', () => {
+describe('GET /spells', () => {
     it('should respond with status 401 if no token is given', async () => {
-        const response = await server.get('/monsters');
+        const response = await server.get('/spells');
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -26,7 +26,7 @@ describe('GET /monsters', () => {
     it('should respond with status 401 if given token is not valid', async () => {
         const token = faker.lorem.word();
 
-        const response = await server.get('/monsters').set('Authorization', `Bearer ${token}`);
+        const response = await server.get('/spells').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -35,36 +35,36 @@ describe('GET /monsters', () => {
         const userWithoutSession = await createUser();
         const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-        const response = await server.get('/monsters').set('Authorization', `Bearer ${token}`);
+        const response = await server.get('/spells').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
 
     describe('when token is valid', () => {
-        it('should respond with status 200 and with monsters data', async () => {
+        it('should respond with status 200 and with spells data', async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
-            const monster = await createMonster(user.id);
+            const spell = await createSpell(user.id);
 
-            const response = await server.get('/monsters').set('Authorization', `Bearer ${token}`);
+            const response = await server.get('/spells').set('Authorization', `Bearer ${token}`);
 
             expect(response.status).toEqual(httpStatus.OK);
             expect(response.body).toEqual([
                 {
-                    id: monster.id,
-                    userId: monster.userId,
-                    monster: monster.monster,
-                    createdAt: monster.createdAt.toISOString(),
-                    updatedAt: monster.updatedAt.toISOString(),
+                    id: spell.id,
+                    userId: spell.userId,
+                    spell: spell.spell,
+                    createdAt: spell.createdAt.toISOString(),
+                    updatedAt: spell.updatedAt.toISOString(),
                 },
             ]);
         });
     });
 });
 
-describe('GET /monsters/:id', () => {
+describe('GET /spells/:id', () => {
     it('should respond with status 401 if no token is given', async () => {
-        const response = await server.get('/monsters/1');
+        const response = await server.get('/spells/1');
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -72,7 +72,7 @@ describe('GET /monsters/:id', () => {
     it('should respond with status 401 if given token is not valid', async () => {
         const token = faker.lorem.word();
 
-        const response = await server.get('/monsters/1').set('Authorization', `Bearer ${token}`);
+        const response = await server.get('/spells/1').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -81,45 +81,45 @@ describe('GET /monsters/:id', () => {
         const userWithoutSession = await createUser();
         const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-        const response = await server.get('/monsters/1').set('Authorization', `Bearer ${token}`);
+        const response = await server.get('/spells/1').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
 
     describe('when token is valid', () => {
-        it('should respond with status 404 when monster id not exist or not found', async () => {
+        it('should respond with status 404 when spell id not exist or not found', async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
 
-            const response = await server.get("/monsters/1").set('Authorization', `Bearer ${token}`);
+            const response = await server.get("/spells/1").set('Authorization', `Bearer ${token}`);
 
             expect(response.status).toEqual(httpStatus.NOT_FOUND);
         });
 
-        it('should respond with status 200 and with monster data', async () => {
+        it('should respond with status 200 and with spell data', async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
-            const monster = await createMonster(user.id);
+            const spell = await createSpell(user.id);
 
-            const response = await server.get(`/monsters/${monster.id}`).set('Authorization', `Bearer ${token}`);
+            const response = await server.get(`/spells/${spell.id}`).set('Authorization', `Bearer ${token}`);
 
             expect(response.status).toEqual(httpStatus.OK);
             expect(response.body).toEqual(
                 {
-                    id: monster.id,
-                    userId: monster.userId,
-                    monster: monster.monster,
-                    createdAt: monster.createdAt.toISOString(),
-                    updatedAt: monster.updatedAt.toISOString(),
+                    id: spell.id,
+                    userId: spell.userId,
+                    spell: spell.spell,
+                    createdAt: spell.createdAt.toISOString(),
+                    updatedAt: spell.updatedAt.toISOString(),
                 },
             );
         });
     });
 });
 
-describe('POST /monsters', () => {
+describe('POST /spells', () => {
     it('should respond with status 401 if no token is given', async () => {
-        const response = await server.post('/monsters');
+        const response = await server.post('/spells');
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -127,7 +127,7 @@ describe('POST /monsters', () => {
     it('should respond with status 401 if given token is not valid', async () => {
         const token = faker.lorem.word();
 
-        const response = await server.post('/monsters').set('Authorization', `Bearer ${token}`);
+        const response = await server.post('/spells').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -136,7 +136,7 @@ describe('POST /monsters', () => {
         const userWithoutSession = await createUser();
         const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-        const response = await server.post('/monsters').set('Authorization', `Bearer ${token}`);
+        const response = await server.post('/spells').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -146,7 +146,7 @@ describe('POST /monsters', () => {
             const user = await createUser();
             const token = await generateValidToken(user);
 
-            const response = await server.post('/monsters').set('Authorization', `Bearer ${token}`).send({});
+            const response = await server.post('/spells').set('Authorization', `Bearer ${token}`).send({});
 
             expect(response.status).toEqual(httpStatus.BAD_REQUEST);
         });
@@ -155,19 +155,26 @@ describe('POST /monsters', () => {
             const user = await createUser();
             const token = await generateValidToken(user);
 
-            const monsterBody = {
-                monster: {
-                    name: faker.name.firstName()
+            const spellBody = {
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                range: "40 feet",
+                ritual: false,
+                duration: "Instantaneous",
+                casting_time: "1 action",
+                level: 3,
+                school: {
+                    name: "Evocation",
                 }
             };
 
-            const response = await server.post('/monsters').set('Authorization', `Bearer ${token}`).send(monsterBody);
+            const response = await server.post('/spells').set('Authorization', `Bearer ${token}`).send(spellBody);
 
             expect(response.status).toEqual(httpStatus.CREATED);
             expect(response.body).toEqual({
                 id: expect.any(Number),
                 userId: expect.any(Number),
-                monster: monsterBody,
+                spell: spellBody,
                 createdAt: expect.any(String),
                 updatedAt: expect.any(String)
               });
@@ -175,9 +182,9 @@ describe('POST /monsters', () => {
     });
 });
 
-describe('PUT /monsters/:id', () => {
+describe('PUT /spells/:id', () => {
     it('should respond with status 401 if no token is given', async () => {
-        const response = await server.put('/monsters/1');
+        const response = await server.put('/spells/1');
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -185,7 +192,7 @@ describe('PUT /monsters/:id', () => {
     it('should respond with status 401 if given token is not valid', async () => {
         const token = faker.lorem.word();
 
-        const response = await server.put('/monsters/1').set('Authorization', `Bearer ${token}`);
+        const response = await server.put('/spells/1').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -194,23 +201,30 @@ describe('PUT /monsters/:id', () => {
         const userWithoutSession = await createUser();
         const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-        const response = await server.put('/monsters/1').set('Authorization', `Bearer ${token}`);
+        const response = await server.put('/spells/1').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
 
     describe('when token is valid', () => {
-        it('should respond with status 404 when monster id not exist or not found', async () => {
+        it('should respond with status 404 when spell id not exist or not found', async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
 
-            const monsterBody = {
-                monster: {
-                    name: faker.name.firstName()
+            const spellBody = {
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                range: "40 feet",
+                ritual: false,
+                duration: "Instantaneous",
+                casting_time: "1 action",
+                level: 3,
+                school: {
+                    name: "Evocation",
                 }
             };
 
-            const response = await server.put("/monsters/1").set('Authorization', `Bearer ${token}`).send(monsterBody);
+            const response = await server.put("/spells/1").set('Authorization', `Bearer ${token}`).send(spellBody);
 
             expect(response.status).toEqual(httpStatus.NOT_FOUND);
         });
@@ -218,24 +232,31 @@ describe('PUT /monsters/:id', () => {
         it('should respond with status 200', async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
-            const monster = await createMonster(user.id);
+            const spell = await createSpell(user.id);
 
-            const monsterBody = {
-                monster: {
-                    name: faker.name.firstName()
+            const spellBody = {
+                index: faker.name.firstName(),
+                name: faker.name.firstName(),
+                range: "40 feet",
+                ritual: false,
+                duration: "Instantaneous",
+                casting_time: "1 action",
+                level: 3,
+                school: {
+                    name: "Evocation",
                 }
             };
 
-            const response = await server.put(`/monsters/${monster.id}`).set('Authorization', `Bearer ${token}`).send(monsterBody);
+            const response = await server.put(`/spells/${spell.id}`).set('Authorization', `Bearer ${token}`).send(spellBody);
 
             expect(response.status).toEqual(httpStatus.OK);
         });
     });
 });
 
-describe('DELETE /monsters/:id', () => {
+describe('DELETE /spells/:id', () => {
     it('should respond with status 401 if no token is given', async () => {
-        const response = await server.delete('/monsters/1');
+        const response = await server.delete('/spells/1');
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -243,7 +264,7 @@ describe('DELETE /monsters/:id', () => {
     it('should respond with status 401 if given token is not valid', async () => {
         const token = faker.lorem.word();
 
-        const response = await server.delete('/monsters/1').set('Authorization', `Bearer ${token}`);
+        const response = await server.delete('/spells/1').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
@@ -252,17 +273,17 @@ describe('DELETE /monsters/:id', () => {
         const userWithoutSession = await createUser();
         const token = jwt.sign({ userId: userWithoutSession.id }, process.env.JWT_SECRET);
 
-        const response = await server.delete('/monsters/1').set('Authorization', `Bearer ${token}`);
+        const response = await server.delete('/spells/1').set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(httpStatus.UNAUTHORIZED);
     });
 
     describe('when token is valid', () => {
-        it('should respond with status 404 when monster id not exist or not found', async () => {
+        it('should respond with status 404 when spell id not exist or not found', async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
 
-            const response = await server.delete("/monsters/1").set('Authorization', `Bearer ${token}`);
+            const response = await server.delete("/spells/1").set('Authorization', `Bearer ${token}`);
 
             expect(response.status).toEqual(httpStatus.NOT_FOUND);
         });
@@ -270,9 +291,9 @@ describe('DELETE /monsters/:id', () => {
         it('should respond with status 200', async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
-            const monster = await createMonster(user.id);
+            const spell = await createSpell(user.id);
 
-            const response = await server.delete(`/monsters/${monster.id}`).set('Authorization', `Bearer ${token}`);
+            const response = await server.delete(`/spells/${spell.id}`).set('Authorization', `Bearer ${token}`);
 
             expect(response.status).toEqual(httpStatus.OK);
         });

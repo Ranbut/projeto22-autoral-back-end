@@ -156,9 +156,11 @@ describe('POST /magic-items', () => {
             const token = await generateValidToken(user);
 
             const magicItemBody = {
-                magicItem: {
-                    name: faker.name.firstName()
-                }
+                index: "mithral-armor",
+                name: "Mithral Armor",
+                equipment_category: { name: "Armor" },
+                rarity: { name: "Uncommon" },
+                variant: false
             };
 
             const response = await server.post('/magic-items').set('Authorization', `Bearer ${token}`).send(magicItemBody);
@@ -205,9 +207,11 @@ describe('PUT /magic-items/:id', () => {
             const token = await generateValidToken(user);
 
             const magicItemBody = {
-                magicItem: {
-                    name: faker.name.firstName()
-                }
+                index: "mithral-armor",
+                name: "Mithral Armor",
+                equipment_category: { name: "Armor" },
+                rarity: { name: "Uncommon" },
+                variant: false
             };
 
             const response = await server.put("/magic-items/1").set('Authorization', `Bearer ${token}`).send(magicItemBody);
@@ -221,9 +225,11 @@ describe('PUT /magic-items/:id', () => {
             const magicItem = await createMagicItems(user.id);
 
             const magicItemBody = {
-                magicItem: {
-                    name: faker.name.firstName()
-                }
+                index: "mithral-armor",
+                name: "Mithral Armor",
+                equipment_category: { name: "Armor" },
+                rarity: { name: "Uncommon" },
+                variant: false
             };
 
             const response = await server.put(`/magic-items/${magicItem.id}`).set('Authorization', `Bearer ${token}`).send(magicItemBody);
